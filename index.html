@@ -71,7 +71,7 @@ button{
 
 <div id="tapToStart">Tap anywhere 💖</div>
 
-<audio id="bgMusic" loop>
+<audio id="bgMusic" loop playsinline>
   <source src="mysong.mp3" type="audio/mpeg">
 </audio>
 
@@ -127,8 +127,13 @@ const overlay=document.getElementById("tapToStart");
 overlay.addEventListener("click",startMusic);
 overlay.addEventListener("touchstart",startMusic);
 function startMusic(){
-  music.play();
-  overlay.style.display="none";
+  music.muted = false;
+  music.currentTime = 0;
+  music.play().then(()=>{
+    overlay.style.display = "none";
+  }).catch(e=>{
+    alert("Tap again to allow music");
+  });
 }
 
 /* pages */
