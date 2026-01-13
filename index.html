@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Sunshine</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  background:#0b0b1a;
+  color:white;
+  font-family:Segoe UI,sans-serif;
+  overflow:hidden;
+}
+
+/* Tap to start */
+#tapToStart{
+  position:fixed;
+  inset:0;
+  background:black;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:24px;
+  z-index:9999;
+}
+
+/* Pages */
+.container{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  position:relative;
+  z-index:5;
+}
+.page{display:none;width:90%;max-width:500px;}
+.page.active{display:block;}
+
+button{
+  margin-top:30px;
+  padding:12px 28px;
+  border:none;
+  border-radius:25px;
+  background:#ff8fa3;
+  color:white;
+  font-size:16px;
+}
+
+/* Effects */
+#hearts,#snow{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+}
+#hearts span,#snow span{
+  position:absolute;
+  animation:fall 6s linear infinite;
+}
+@keyframes fall{
+  0%{transform:translateY(100vh);}
+  100%{transform:translateY(-10vh);}
+}
+#final{display:none;}
+</style>
+</head>
+
+<body>
+
+<div id="tapToStart">Tap anywhere 💖</div>
+
+<audio id="bgMusic" loop>
+  <source src="mysong.mp3" type="audio/mpeg">
+</audio>
+
+<div id="hearts"></div>
+<div id="snow"></div>
+
+<div class="container">
+
+<div class="page active">
+  <h1 class="type">For My Sunshine ☀️</h1>
+  <p class="type">I made this just for you…</p>
+  <button onclick="next()">Next</button>
+</div>
+
+<div class="page">
+  <p class="type">We had a conflict…</p>
+  <p class="type">I never wanted to hurt you…</p>
+  <button onclick="next()">Next</button>
+</div>
+
+<div class="page">
+  <p class="type">You are my Sunshine…</p>
+  <p class="type">You bring warmth to my world…</p>
+  <button onclick="next()">Next</button>
+</div>
+
+<div class="page">
+  <p class="type">I am deeply sorry…</p>
+  <p class="type">I wish I could make things right…</p>
+  <button onclick="next()">Next</button>
+</div>
+
+<div class="page">
+  <p class="type">Please give me one more chance…</p>
+  <button onclick="showFinal()">Final Message 💌</button>
+
+  <div id="final">
+    <p class="type">My Sunshine, I truly care about you…</p>
+    <p class="type">I never want to lose you…</p>
+    <p class="type">Please forgive me 💙</p>
+    <p class="type">Please mere se baat kr…</p>
+    <p class="type">Aese gussa mat reh…</p>
+    <p class="type">But aese chup mat ho…</p>
+  </div>
+</div>
+
+</div>
+
+<script>
+const music=document.getElementById("bgMusic");
+const overlay=document.getElementById("tapToStart");
+
+overlay.addEventListener("click",startMusic);
+overlay.addEventListener("touchstart",startMusic);
+function startMusic(){
+  music.play();
+  overlay.style.display="none";
+}
+
+/* pages */
+const pages=document.querySelectorAll(".page");
+let current=0;
+function next(){
+  pages[current].classList.remove("active");
+  current++;
+  pages[current].classList.add("active");
+  typeAll();
+}
+
+function showFinal(){
+  document.getElementById("final").style.display="block";
+  typeAll();
+}
+
+/* typing */
+function typeAll(){
+  document.querySelectorAll(".type").forEach(el=>{
+    let t=el.getAttribute("data-text");
+    if(!t){t=el.innerHTML;el.setAttribute("data-text",t);}
+    el.innerHTML="";
+    let i=0;
+    const x=setInterval(()=>{
+      if(i<t.length)el.innerHTML+=t[i++];
+      else clearInterval(x);
+    },40);
+  });
+}
+typeAll();
+
+/* hearts */
+setInterval(()=>{
+  const h=document.createElement("span");
+  h.innerHTML="💖";
+  h.style.left=Math.random()*100+"vw";
+  document.getElementById("hearts").appendChild(h);
+  setTimeout(()=>h.remove(),6000);
+},500);
+
+/* snow */
+setInterval(()=>{
+  const s=document.createElement("span");
+  s.innerHTML="❄️";
+  s.style.left=Math.random()*100+"vw";
+  document.getElementById("snow").appendChild(s);
+  setTimeout(()=>s.remove(),6000);
+},400);
+</script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Sunshine</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  background:#0b0b1a;
+  color:white;
+  font-family:Segoe UI,sans-serif;
+  overflow:hidden;
+}
+
+/* Tap to start */
+#tapToStart{
+  position:fixed;
+  inset:0;
+  background:black;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:24px;
+  z-index:9999;
+}
+
+/* Pages */
+.container{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  position:relative;
+  z-index:5;
+}
+.page{display:none;width:90%;max-width:500px;}
+.page.active{display:block;}
+
+button{
+  margin-top:30px;
+  padding:12px 28px;
+  border:none;
+  border-radius:25px;
+  background:#ff8fa3;
+  color:white;
+  font-size:16px;
+}
+
+/* Effects */
+#hearts,#snow{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+}
+#hearts span,#snow span{
+  position:absolute;
+  animation:fall 6s linear infinite;
+}
+@keyframes fall{
+  0%{transform:translateY(100vh);}
+  100%{transform:translateY(-10vh);}
+}
+#final{display:none;}
+</style>
+</head>
+
+<body>
+
+<div id="tapToStart">Tap anywhere 💖</div>
+
+<audio id="bgMusic" loop>
+  <source src="mysong.mp3" type="audio/mpeg">
+</audio>
+
+<div id="hearts"></div>
+<div id="snow"></div>
+
+<div class="container">
+
+<div class="page active">
+  <h1 class="type">For My Sunshine ☀️</h1>
+  <p class="type">I made this just for you…</p>
+  <button onclick="next()">Next</button>
+</div>
+
+<div class="page">
+  <p class="type">We had a conflict…</p>
+  <p class="type">I never wanted to hurt you…</p>
+  <button onclick="next()">Next</button>
+</div>
+
+<div class="page">
+  <p class="type">You are my Sunshine…</p>
+  <p class="type">You bring warmth to my world…</p>
+  <button onclick="next()">Next</button>
+</div>
+
+<div class="page">
+  <p class="type">I am deeply sorry…</p>
+  <p class="type">I wish I could make things right…</p>
+  <button onclick="next()">Next</button>
+</div>
+
+<div class="page">
+  <p class="type">Please give me one more chance…</p>
+  <button onclick="showFinal()">Final Message 💌</button>
+
+  <div id="final">
+    <p class="type">My Sunshine, I truly care about you…</p>
+    <p class="type">I never want to lose you…</p>
+    <p class="type">Please forgive me 💙</p>
+    <p class="type">Please mere se baat kr…</p>
+    <p class="type">Aese gussa mat reh…</p>
+    <p class="type">But aese chup mat ho…</p>
+  </div>
+</div>
+
+</div>
+
+<script>
+const music=document.getElementById("bgMusic");
+const overlay=document.getElementById("tapToStart");
+
+overlay.addEventListener("click",startMusic);
+overlay.addEventListener("touchstart",startMusic);
+function startMusic(){
+  music.play();
+  overlay.style.display="none";
+}
+
+/* pages */
+const pages=document.querySelectorAll(".page");
+let current=0;
+function next(){
+  pages[current].classList.remove("active");
+  current++;
+  pages[current].classList.add("active");
+  typeAll();
+}
+
+function showFinal(){
+  document.getElementById("final").style.display="block";
+  typeAll();
+}
+
+/* typing */
+function typeAll(){
+  document.querySelectorAll(".type").forEach(el=>{
+    let t=el.getAttribute("data-text");
+    if(!t){t=el.innerHTML;el.setAttribute("data-text",t);}
+    el.innerHTML="";
+    let i=0;
+    const x=setInterval(()=>{
+      if(i<t.length)el.innerHTML+=t[i++];
+      else clearInterval(x);
+    },40);
+  });
+}
+typeAll();
+
+/* hearts */
+setInterval(()=>{
+  const h=document.createElement("span");
+  h.innerHTML="💖";
+  h.style.left=Math.random()*100+"vw";
+  document.getElementById("hearts").appendChild(h);
+  setTimeout(()=>h.remove(),6000);
+},500);
+
+/* snow */
+setInterval(()=>{
+  const s=document.createElement("span");
+  s.innerHTML="❄️";
+  s.style.left=Math.random()*100+"vw";
+  document.getElementById("snow").appendChild(s);
+  setTimeout(()=>s.remove(),6000);
+},400);
+</script>
+
+</body>
+</html>
